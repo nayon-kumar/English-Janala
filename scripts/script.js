@@ -13,13 +13,20 @@ const loadLessons = async () => {
 };
 loadLessons();
 
+const removeActive = () => {
+  const lessionBtn = document.querySelectorAll(".lessionBtn");
+  lessionBtn.forEach((btn) => {
+    btn.classList.remove("active");
+  });
+};
+
 const leveContainer = document.getElementById("leveContainer");
 const displayLession = (lessions) => {
   leveContainer.innerHTML = "";
   for (let lession of lessions) {
     const btnDiv = document.createElement("div");
     btnDiv.innerHTML = `
-    <button onclick="loadWord(${lession.level_no})" class="btn btn-outline btn-primary">
+    <button id="lessionBtn${lession.level_no}" onclick="loadWord(${lession.level_no})" class="lessionBtn btn btn-outline btn-primary">
         <i class="fa-solid fa-book-open"></i> Lession - ${lession.level_no}
     </button>
     `;
@@ -30,6 +37,9 @@ const displayLession = (lessions) => {
 const loadWord = async (id) => {
   const url = `https://openapi.programming-hero.com/api/level/${id}`;
   try {
+    const lessionBtn = document.getElementById(`lessionBtn${id}`);
+    removeActive();
+    lessionBtn.classList.add("active");
     const res = await fetch(url);
     if (!res.ok) {
       throw new Error("Failed to fetch data!");
