@@ -3,7 +3,7 @@ const loadLessons = async () => {
   try {
     const res = await fetch(url);
     if (!res.ok) {
-      throw new Error("Failed to fetch data");
+      throw new Error("Failed to fetch data!");
     }
     const data = await res.json();
     displayLession(data.data);
@@ -19,10 +19,70 @@ const displayLession = (lessions) => {
   for (let lession of lessions) {
     const btnDiv = document.createElement("div");
     btnDiv.innerHTML = `
-    <button class="btn btn-outline btn-primary">
+    <button onclick="loadWord(${lession.level_no})" class="btn btn-outline btn-primary">
         <i class="fa-solid fa-book-open"></i> Lession - ${lession.level_no}
     </button>
     `;
     leveContainer.appendChild(btnDiv);
+  }
+};
+
+const loadWord = async (id) => {
+  const url = `https://openapi.programming-hero.com/api/level/${id}`;
+  try {
+    const res = await fetch(url);
+    if (!res.ok) {
+      throw new Error("Failed to fetch data!");
+    }
+    const data = await res.json();
+    displayWord(data.data);
+  } catch (error) {
+    console.error("Error: ", error.message);
+  }
+};
+
+const wordContainer = document.getElementById("wordContainer");
+
+const displayWord = (words) => {
+  wordContainer.innerHTML = "";
+  if (words.length == 0) {
+    wordContainer.innerHTML = `
+    <div
+            class="text-center col-span-full py-10 px-5 space-y-6"
+          >
+            <img class="mx-auto" src="./assets/alert-error.png">
+            <p class="text-lg fontBangla text-gray-500">
+              এই Lesson এ এখনো কোন Vocabulary যুক্ত করা হয়নি।
+            </p>
+            <h2 class="font-bold fontBangla text-xl md:text-2xl">
+              নেক্সট Lesson এ যান
+            </h2>
+          </div>
+    `;
+    return;
+  }
+
+  for (let word of words) {
+    const card = document.createElement("div");
+    card.innerHTML = `
+    <div
+            class="bg-white rounded-xl shadow-sm text-center py-15 px-5 space-y-4"
+          >
+            <h2 class="font-bold text-xl md:text-2xl">${word.word ? word.word : "শব্দ পাওয়া যায়নি"}</h2>
+            <p class="font-semibold">Meaning /Pronounciation</p>
+            <div class="font-medium text-xl md:text-2xl fontBangla">
+              "${word.meaning ? word.meaning : "অর্থ পাওয়া যায়নি"} / ${word.pronunciation ? word.pronunciation : "Pronounciation পাওয়া  যায়নি"}"
+            </div>
+            <div class="flex justify-between items-center">
+              <button class="btn bg-[#1A91FF]/15 hover:bg-[#1A91FF]/50">
+                <i class="fa-solid fa-circle-info"></i>
+              </button>
+              <button class="btn bg-[#1A91FF]/15 hover:bg-[#1A91FF]/50">
+                <i class="fa-solid fa-volume-high"></i>
+              </button>
+            </div>
+          </div>
+    `;
+    wordContainer.appendChild(card);
   }
 };
