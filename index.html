@@ -141,10 +141,21 @@
             <span class="text-sky-400 px-5">Let's</span>Learn Vocabularies
           </h2>
         </div>
+        <!-- Level Container -->
         <div
           id="leveContainer"
           class="flex gap-5 flex-wrap justify-center"
         ></div>
+
+        <!-- Loading effect -->
+        <div
+          id="myLoading"
+          class="flex justify-center items-center py-10 hidden"
+        >
+          <span class="loading loading-bars loading-xl"></span>
+        </div>
+
+        <!-- Word container -->
         <div
           id="wordContainer"
           class="bg-gray-300 grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 px-5 py-10 mt-[60px]"
@@ -172,17 +183,7 @@
     <!-- Modal -->
     <dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle">
       <div class="modal-box">
-        <div id="detailsContainer">
-          <div>
-            <h2 class="text-2xl font-bold">
-              Eagar (<i class="fa-solid fa-microphone-lines"></i> : ইগার)
-            </h2>
-          </div>
-          <div>
-            <h2 class="text-2xl font-bold">Meaning</h2>
-            <p>আগ্রহী</p>
-          </div>
-        </div>
+        <div id="detailsContainer" class="space-y-4"></div>
         <div class="modal-action">
           <form method="dialog">
             <!-- if there is a button in form, it will close the modal -->

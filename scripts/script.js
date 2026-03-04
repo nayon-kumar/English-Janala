@@ -1,3 +1,18 @@
+const createElements = (arr) => {
+  htmlElements = arr.map((el) => `<span class="btn">${el}</span>`);
+  return htmlElements.join(" ");
+};
+
+const manageLoading = (status) => {
+  if (status) {
+    document.getElementById("myLoading").classList.remove("hidden");
+    document.getElementById("wordContainer").classList.add("hidden");
+  } else {
+    document.getElementById("myLoading").classList.add("hidden");
+    document.getElementById("wordContainer").classList.remove("hidden");
+  }
+};
+
 const loadLessons = async () => {
   const url = "https://openapi.programming-hero.com/api/levels/all";
   try {
@@ -37,6 +52,7 @@ const displayLession = (lessions) => {
 const loadWord = async (id) => {
   const url = `https://openapi.programming-hero.com/api/level/${id}`;
   try {
+    manageLoading(true);
     const lessionBtn = document.getElementById(`lessionBtn${id}`);
     removeActive();
     lessionBtn.classList.add("active");
@@ -69,6 +85,7 @@ const displayWord = (words) => {
             </h2>
           </div>
     `;
+    manageLoading(false);
     return;
   }
 
@@ -95,6 +112,7 @@ const displayWord = (words) => {
     `;
     wordContainer.appendChild(card);
   }
+  manageLoading(false);
 };
 
 const loadWordDetails = async (id) => {
@@ -110,6 +128,26 @@ const loadWordDetails = async (id) => {
 
 const detailsContainer = document.getElementById("detailsContainer");
 const displayWordDetails = (details) => {
-  // detailsContainer.innerHTML = "Hi I am JS!";
+  detailsContainer.innerHTML = `
+  <div>
+            <h2 class="text-2xl font-bold">
+              ${details.word} (<i class="fa-solid fa-microphone-lines"></i> : ${details.pronunciation})
+            </h2>
+          </div>
+          <div class="space-y-2">
+            <h2 class="font-bold">Meaning</h2>
+            <p>${details.meaning}</p>
+          </div>
+          <div class="space-y-2">
+            <h2 class="font-bold">Example</h2>
+            <p>${details.sentence}</p>
+          </div>
+          <div>
+            <h2 class="font-bold mb-2">সমার্থক শব্দ গুলো</h2>
+            <div>
+              ${createElements(details.synonyms)}
+            </div>
+          </div>
+  `;
   document.getElementById("my_modal_5").showModal();
 };
