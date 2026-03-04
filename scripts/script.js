@@ -151,3 +151,10 @@ const displayWordDetails = (details) => {
   `;
   document.getElementById("my_modal_5").showModal();
 };
+
+const btnSearch = document.getElementById("btnSearch");
+btnSearch.addEventListener("click", function () {
+  const inputSearch = document.getElementById("inputSearch");
+  const searchValue = inputSearch.value;
+  console.log(searchValue);
+});
