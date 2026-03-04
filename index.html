@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -62,13 +62,17 @@
               class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
             >
               <li>
-                <a href="#"><i class="fa-solid fa-circle-question"></i> FAQ</a>
+                <a href="#faqSection"
+                  ><i class="fa-solid fa-circle-question"></i> FAQ</a
+                >
               </li>
               <li>
-                <a href="#"><i class="fa-solid fa-book-open"></i> Learn</a>
+                <a href="#learnSection"
+                  ><i class="fa-solid fa-book-open"></i> Learn</a
+                >
               </li>
               <li>
-                <a href="#"
+                <a onclick="my_modal_1.showModal()" href="#"
                   ><i class="fa-solid fa-arrow-right-from-bracket"></i>
                   Logout</a
                 >
@@ -84,17 +88,20 @@
         <div class="navbar-end hidden md:flex">
           <ul class="menu menu-horizontal px-1 space-x-4">
             <li>
-              <a href="#" class="btn btn-outline btn-primary"
+              <a href="#faqSection" class="btn btn-outline btn-primary"
                 ><i class="fa-solid fa-circle-question"></i> FAQ</a
               >
             </li>
             <li>
-              <a href="#" class="btn btn-outline btn-primary"
+              <a href="#learnSection" class="btn btn-outline btn-primary"
                 ><i class="fa-solid fa-book-open"></i> Learn</a
               >
             </li>
             <li>
-              <a href="#" class="btn btn-outline btn-primary"
+              <a
+                onclick="my_modal_1.showModal()"
+                href="#"
+                class="btn btn-outline btn-primary logout"
                 ><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a
               >
             </li>
@@ -127,7 +134,9 @@
               type="password"
               placeholder="Password"
             /><br />
-            <button class="btn btn-primary">Get Started</button>
+            <button onclick="my_modal_1.showModal()" class="btn btn-primary">
+              Get Started
+            </button>
           </div>
           <div class="flex-1">
             <img src="assets/hero-student.png" alt="Man" />
@@ -135,7 +144,7 @@
         </div>
       </section>
       <!-- Learn section -->
-      <section class="md:w-[90%] mx-auto mt-10">
+      <section id="learnSection" class="md:w-[90%] mx-auto mt-10">
         <div>
           <h2 class="text-2xl text-center md:text-3xl font-bold mb-10">
             <span class="text-sky-400 px-5">Let's</span>Learn Vocabularies
@@ -190,7 +199,7 @@
         </div>
       </section>
       <!-- Faq section -->
-      <section class="w-[90%] mx-auto mt-20">
+      <section id="faqSection" class="w-[90%] mx-auto mt-20">
         <div>
           <div>
             <h2 class="text-2xl text-center md:text-3xl font-bold mb-10">
@@ -318,6 +327,19 @@
     <dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle">
       <div class="modal-box">
         <div id="detailsContainer" class="space-y-4"></div>
+        <div class="modal-action">
+          <form method="dialog">
+            <!-- if there is a button in form, it will close the modal -->
+            <button class="btn">Close</button>
+          </form>
+        </div>
+      </div>
+    </dialog>
+
+    <!-- Extra modal for error -->
+    <dialog id="my_modal_1" class="modal modal-bottom sm:modal-middle">
+      <div class="modal-box">
+        <p class="py-4">This feature is not made yet. Try another option!</p>
         <div class="modal-action">
           <form method="dialog">
             <!-- if there is a button in form, it will close the modal -->
