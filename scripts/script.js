@@ -84,7 +84,7 @@ const displayWord = (words) => {
               "${word.meaning ? word.meaning : "অর্থ পাওয়া যায়নি"} / ${word.pronunciation ? word.pronunciation : "Pronounciation পাওয়া  যায়নি"}"
             </div>
             <div class="flex justify-between items-center">
-              <button class="btn bg-[#1A91FF]/15 hover:bg-[#1A91FF]/50">
+              <button onclick="loadWordDetails(${word.id})" class="btn bg-[#1A91FF]/15 hover:bg-[#1A91FF]/50">
                 <i class="fa-solid fa-circle-info"></i>
               </button>
               <button class="btn bg-[#1A91FF]/15 hover:bg-[#1A91FF]/50">
@@ -95,4 +95,21 @@ const displayWord = (words) => {
     `;
     wordContainer.appendChild(card);
   }
+};
+
+const loadWordDetails = async (id) => {
+  const url = `https://openapi.programming-hero.com/api/word/${id}`;
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
+    displayWordDetails(data.data);
+  } catch (error) {
+    console.error("Error : ", error.message);
+  }
+};
+
+const detailsContainer = document.getElementById("detailsContainer");
+const displayWordDetails = (details) => {
+  // detailsContainer.innerHTML = "Hi I am JS!";
+  document.getElementById("my_modal_5").showModal();
 };
