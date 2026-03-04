@@ -1,3 +1,9 @@
+function pronounceWord(word) {
+  const utterance = new SpeechSynthesisUtterance(word);
+  utterance.lang = "en-EN"; // English
+  window.speechSynthesis.speak(utterance);
+}
+
 const createElements = (arr) => {
   htmlElements = arr.map((el) => `<span class="btn">${el}</span>`);
   return htmlElements.join(" ");
@@ -104,7 +110,7 @@ const displayWord = (words) => {
               <button onclick="loadWordDetails(${word.id})" class="btn bg-[#1A91FF]/15 hover:bg-[#1A91FF]/50">
                 <i class="fa-solid fa-circle-info"></i>
               </button>
-              <button class="btn bg-[#1A91FF]/15 hover:bg-[#1A91FF]/50">
+              <button onclick="pronounceWord('${word.word}')" class="btn bg-[#1A91FF]/15 hover:bg-[#1A91FF]/50">
                 <i class="fa-solid fa-volume-high"></i>
               </button>
             </div>
