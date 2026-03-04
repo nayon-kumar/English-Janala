@@ -153,8 +153,31 @@ const displayWordDetails = (details) => {
 };
 
 const btnSearch = document.getElementById("btnSearch");
-btnSearch.addEventListener("click", function () {
+
+btnSearch.addEventListener("click", async function () {
+  removeActive();
   const inputSearch = document.getElementById("inputSearch");
-  const searchValue = inputSearch.value;
-  console.log(searchValue);
+  const searchValue = inputSearch.value.trim().toLowerCase();
+
+  if (!searchValue) {
+    console.log("Please enter a search word");
+    return;
+  }
+
+  const url = "https://openapi.programming-hero.com/api/words/all";
+
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
+
+    const allWords = data.data;
+
+    const filterWords = allWords.filter((word) =>
+      word.word.toLowerCase().includes(searchValue),
+    );
+    displayWord(filterWords);
+    inputSearch.value = "";
+  } catch (error) {
+    console.error("Error:", error);
+  }
 });
